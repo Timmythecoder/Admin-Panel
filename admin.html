@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Update</title>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <h1>Admin Panel for Updating Ads</h1>
+    
+    <h2>Update First Ad</h2>
+    <textarea id="firstAdText" placeholder="Enter first ad text"></textarea>
+    <input type="text" id="firstAdImage" placeholder="Enter first ad image URL">
+    <button onclick="updateFirstAd()">Update First Ad</button>
+
+    <h2>Update Second Ad</h2>
+    <textarea id="secondAdText" placeholder="Enter second ad text"></textarea>
+    <input type="text" id="secondAdImage" placeholder="Enter second ad image URL">
+    <button onclick="updateSecondAd()">Update Second Ad</button>
+
+    <script>
+        // Firebase configuration
+       
+            const firebaseConfig = {
+  apiKey: "AIzaSyC8qeTBv9vgVlCMOQjFXPAGMkd7wHbKVe8",
+  authDomain: "team-waffles-sys.firebaseapp.com",
+  projectId: "team-waffles-sys",
+  storageBucket: "team-waffles-sys.firebasestorage.app",
+  messagingSenderId: "824743077785",
+  appId: "1:824743077785:web:31f5c51d26b2088b71d508",
+  measurementId: "G-D2G5DV44ZC"
+};
+
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Function to update the first ad
+        function updateFirstAd() {
+            const adText = document.getElementById("firstAdText").value;
+            const adImage = document.getElementById("firstAdImage").value;
+
+            database.ref('content/ads/firstAd').set({
+                text: adText,
+                image: adImage,
+                timestamp: new Date().toISOString()
+            }).then(() => {
+                alert("First Ad updated successfully!");
+            }).catch((error) => {
+                console.error("Error updating first ad:", error);
+            });
+        }
+
+        // Function to update the second ad
+        function updateSecondAd() {
+            const adText = document.getElementById("secondAdText").value;
+            const adImage = document.getElementById("secondAdImage").value;
+
+            database.ref('content/ads/secondAd').set({
+                text: adText,
+                image: adImage,
+                timestamp: new Date().toISOString()
+            }).then(() => {
+                alert("Second Ad updated successfully!");
+            }).catch((error) => {
+                console.error("Error updating second ad:", error);
+            });
+        }
+    </script>
+</body>
+</html>
